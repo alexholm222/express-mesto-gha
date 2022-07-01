@@ -22,7 +22,5 @@ app.use((req, res, next) => {
 
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
-app.use('*', (req, res, next) => next(
-  new Error('Запрошен не существующий ресурс'),
-));
+
 app.listen(PORT)
