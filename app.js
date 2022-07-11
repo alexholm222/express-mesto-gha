@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors, celebrate, Joi } = require('celebrate');
+const { linkValidator } = require('./utils/linkValidator');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const error = require('./middlewares/error');
@@ -28,6 +29,9 @@ app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
+    name: Joi.string().max(30).min(2),
+    about: Joi.string().max(30).min(2),
+    avatar: Joi.string().custom(linkValidator),
   }),
 }), createUser);
 
